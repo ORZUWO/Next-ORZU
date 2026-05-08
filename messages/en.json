@@ -1,5 +1,90 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "hero": {
+      "title": "Experience the Future of Digital Design",
+      "subtitle": "We create immersive digital experiences that redefine excellence and push the boundaries of innovation.",
+      "cta": "Explore Collection",
+      "secondaryCta": "Our Story"
+    },
+    "features": {
+      "title": "Why Choose ORZU?",
+      "item1": {
+        "title": "Cutting-Edge Tech",
+        "desc": "Built with the latest technologies for unmatched performance."
+      },
+      "item2": {
+        "title": "Premium Design",
+        "desc": "Meticulously crafted interfaces that inspire and engage."
+      },
+      "item3": {
+        "title": "Global Vision",
+        "desc": "Thinking globally to solve local and international challenges."
+      }
+    }
+  },
+  "About": {
+    "title": "About Our Vision",
+    "subtitle": "Crafting the future of digital experiences with precision and passion.",
+    "description": "We are a team of dedicated designers and developers committed to pushing the boundaries of what's possible in the digital realm. Our journey began with a simple idea: to make technology beautiful and accessible.",
+    "missionTitle": "Our Mission",
+    "missionDesc": "To empower businesses through innovative technology and stunning design, creating lasting value for our clients and their users.",
+    "teamTitle": "The Team",
+    "teamDesc": "A diverse group of thinkers, makers, and innovators working together to solve complex problems with elegant solutions.",
+    "stats": {
+      "projects": "150+",
+      "projectsLabel": "Projects Done",
+      "clients": "50+",
+      "clientsLabel": "Happy Clients",
+      "awards": "12",
+      "awardsLabel": "Design Awards"
+    },
+    "values": {
+      "innovation": "Innovation",
+      "innovationDesc": "Always exploring new technologies and design patterns.",
+      "quality": "Quality",
+      "qualityDesc": "We don't settle for anything less than perfection.",
+      "integrity": "Integrity",
+      "integrityDesc": "Honesty and transparency in everything we do."
+    }
+  },
+  "Contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's build something extraordinary together. Reach out for collaborations or inquiries.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "message": "Your Message",
+      "submit": "Send Message"
+    },
+    "info": {
+      "title": "Contact Information",
+      "email": "hello@orzu.vision",
+      "phone": "+1 (555) 000-0000",
+      "address": "123 Innovation Drive, Silicon Valley, CA"
+    },
+    "success": "Thank you! Your message has been sent."
+  },
+  "Product": {
+    "title": "Our Products",
+    "subtitle": "Discover our collection of high-performance digital tools and experiences.",
+    "back": "Back to Products",
+    "buy": "Purchase Now",
+    "items": {
+      "p1": {
+        "name": "Zenith Interface",
+        "desc": "A revolutionary UI framework designed for maximum performance and minimalist aesthetics.",
+        "price": "$49"
+      },
+      "p2": {
+        "name": "Nova Analytics",
+        "desc": "Real-time data visualization tool that turns complex metrics into actionable insights.",
+        "price": "$99"
+      },
+      "p3": {
+        "name": "Aura Cloud",
+        "desc": "Secure, lightning-fast cloud infrastructure optimized for modern web applications.",
+        "price": "$149"
+      }
+    }
   }
 }
