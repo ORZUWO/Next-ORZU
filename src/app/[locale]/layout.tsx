@@ -7,6 +7,7 @@ import Loading from "../loading";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
+import Providers from "@/components/Providers";
 
 type Props = {
   children: React.ReactNode;
@@ -34,18 +35,18 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
   return (
     <html
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+          <Providers>
         <NextIntlClientProvider>
           <Navbar />
-
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </NextIntlClientProvider>
+          </Providers>
       </body>
     </html>
   );
