@@ -1,40 +1,52 @@
-// Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IStudent } from './types'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { IStudent, IStudentCreate } from "./types"
 
-let api="http://69945553fade7a9ec0f51007.mockapi.io/Student"
-// Define a service using a base URL and expected endpoints
+const api = "https://69945553fade7a9ec0f51007.mockapi.io/Student"
+
 export const Todoapi = createApi({
-  reducerPath: 'Todoapi',
-  baseQuery: fetchBaseQuery({ baseUrl: api }),
+  reducerPath: "Todoapi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: api,
+  }),
+  tagTypes: ["GetTodo"],
+
   endpoints: (builder) => ({
-    getTodoapi: builder.query<IStudent, null>({
-      query: () => ``,
+    getTodoapi: builder.query<IStudent[], void>({
+      query: () => "",
+      providesTags: ["GetTodo"],
     }),
-    postTodoapi: builder.mutation<IStudent, null>({
-      query: (newUser) =>({
-        url: '',
-        method: 'POST',
-        body: newUser,
-      }),
-    }),
-    deleteTodoapi: builder.mutation<IStudent, null>({
-      query: (id) =>({
+
+    deleteTodoapi: builder.mutation<void, string>({
+      query: (id) => ({
         url: `/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
+      invalidatesTags: ["GetTodo"],
     }),
-    editTodoapi: builder.mutation<IStudent, null>({
-      query: (edituser) =>({
+
+    postTodoapi: builder.mutation<IStudent, IStudentCreate>({
+      query: (newuser) => ({
+        url: "",
+        method: "POST",
+        body: newuser,
+      }),
+      invalidatesTags: ["GetTodo"],
+    }),
+
+    editTodoapi: builder.mutation<IStudent, IStudent>({
+      query: (edituser) => ({
         url: `/${edituser.id}`,
-        method: 'PUT',
+        method: "PUT",
         body: edituser,
       }),
+      invalidatesTags: ["GetTodo"],
     }),
-    
   }),
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetTodoapiQuery, usePostTodoapiMutation,useDeleteTodoapiMutation,useEditTodoapiMutation } = Todoapi
+export const {
+  useGetTodoapiQuery,
+  useDeleteTodoapiMutation,
+  usePostTodoapiMutation,
+  useEditTodoapiMutation,
+} = Todoapi
