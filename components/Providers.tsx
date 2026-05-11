@@ -1,17 +1,8 @@
-"use client"
-import { store } from "@/src/srore";
-import { Provider } from 'react-redux'
+"use client";
 
+import { Provider } from "react-redux";
+import { store } from "@/src/store";
 
-type Props = {
-    children: React.ReactNode;
-};
-
-export default function Providers({ children, }: Props) {
-    return (
-
-        <Provider store={store}>
-            {children}
-        </Provider>
-    );
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return <Provider store={store}>{children}</Provider>;
 }

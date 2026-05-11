@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-    // Гирифтани параметрҳои URL (Логика бетағйир монд)
     const { id } = await params;
 
     const data = [
@@ -34,7 +33,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="flex-1 flex items-center justify-center p-6 md:p-12 lg:p-24">
             {product ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl w-full">
-                    {/* Image Section */}
                     <div className="relative group overflow-hidden rounded-[40px] glass-card h-[400px] md:h-[600px]">
                         <img 
                             src={product.image} 
@@ -44,7 +42,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-40"></div>
                     </div>
 
-                    {/* Info Section */}
                     <div className="flex flex-col justify-center">
                         <Link href="/product" className="inline-flex items-center text-sm font-bold text-slate-400 hover:text-white mb-8 transition-colors">
                             <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
