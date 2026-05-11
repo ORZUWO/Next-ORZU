@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 
 const ProductPage = () => {
-  // Рӯйхати маҳсулотҳо (Логика бетағйир монд)
   const data = [
     { 
       id: 1, 
@@ -45,7 +44,6 @@ const ProductPage = () => {
             href={`/product/${product.id}`}
             className="group relative flex flex-col overflow-hidden rounded-[32px] glass-card transition-all duration-500 hover:-translate-y-2 hover:shadow-blue-500/10 hover:shadow-2xl"
           >
-            {/* Image Container */}
             <div className="relative h-[300px] w-full overflow-hidden">
               <img 
                 src={product.image} 
@@ -61,7 +59,6 @@ const ProductPage = () => {
               </div>
             </div>
             
-            {/* Content */}
             <div className="p-8">
               <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                 {product.name}
