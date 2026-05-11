@@ -2,6 +2,19 @@
 
 import { useRouter } from "@/src/i18n/navigation"
 import { useState } from "react"
+import { z } from "zod"
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email format"),
+
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(4, "Password must be at least 4 characters"),
+})
 
 export default function LoginPage() {
   const router = useRouter()
@@ -16,19 +29,18 @@ export default function LoginPage() {
     setIsLoading(true)
     setError("")
 
-    await new Promise(resolve => setTimeout(resolve, 500))
+    const result = loginSchema.safeParse({
+      email,
+      password,
+    })
 
-    if (!email || !password) {
-      setError("Email and password are required")
+    if (!result.success) {
+      setError(result.error.issues[0].message)
       setIsLoading(false)
       return
     }
 
-    if (!email.includes("@")) {
-      setError("Invalid email format")
-      setIsLoading(false)
-      return
-    }
+    await new Promise((resolve) => setTimeout(resolve, 500))
 
     localStorage.setItem("auth", "true")
     router.push("/dashboard/clients")
@@ -42,8 +54,12 @@ export default function LoginPage() {
             <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-blue-600 mb-4 shadow-lg shadow-blue-200">
               <span className="text-xl font-bold text-white">O</span>
             </div>
+
             <h1 className="text-2xl font-bold text-slate-900">Sign In</h1>
-            <p className="text-slate-500 text-sm mt-1 font-medium">Access your CRM Dashboard</p>
+
+            <p className="text-slate-500 text-sm mt-1 font-medium">
+              Access your CRM Dashboard
+            </p>
           </div>
 
           <form onSubmit={login} className="space-y-5">
@@ -54,7 +70,10 @@ export default function LoginPage() {
             )}
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase ml-1">Email Address</label>
+              <label className="text-xs font-bold text-slate-400 uppercase ml-1">
+                Email Address
+              </label>
+
               <input
                 type="email"
                 placeholder="name@gmail.com"
@@ -65,7 +84,10 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase ml-1">Password</label>
+              <label className="text-xs font-bold text-slate-400 uppercase ml-1">
+                Password
+              </label>
+
               <input
                 type="password"
                 placeholder="••••••••"
