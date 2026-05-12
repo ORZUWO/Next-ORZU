@@ -11,6 +11,7 @@ export default function DashboardLayout({
   const router = useRouter()
   const pathname = usePathname()
   const [isMounted, setIsMounted] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
@@ -29,9 +30,15 @@ export default function DashboardLayout({
 
   const pageTitle = pathname.split("/").pop() || "Dashboard"
 
+  const navLinks = [
+    { href: "/dashboard", label: "Dashboard", icon: "📊" },
+    { href: "/dashboard/clients", label: "Clients", icon: "👥" },
+    { href: "/dashboard/settings", label: "Settings", icon: "⚙️" },
+  ]
+
   return (
     <div className="flex min-h-screen bg-[#f8fafc] font-sans">
-      <aside className="w-64 bg-[#0f172a] text-slate-400 flex flex-col fixed h-full shadow-2xl">
+      <aside className="hidden lg:flex w-64 bg-[#0f172a] text-slate-400 flex-col fixed h-full shadow-2xl z-40">
         <div className="p-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -42,41 +49,20 @@ export default function DashboardLayout({
         </div>
 
         <nav className="flex-1 px-4 space-y-2 mt-4">
-          <Link
-            href="/dashboard"
-            className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
-              pathname === "/dashboard"
-                ? "bg-blue-600 text-white shadow-xl shadow-blue-600/20"
-                : "hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <span className="text-lg">📊</span>
-            Dashboard
-          </Link>
-
-          <Link
-            href="/dashboard/clients"
-            className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
-              pathname.startsWith("/dashboard/clients")
-                ? "bg-blue-600 text-white shadow-xl shadow-blue-600/20"
-                : "hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <span className="text-lg">👥</span>
-            Clients
-          </Link>
-
-          <Link
-            href="/dashboard/settings"
-            className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
-              pathname.startsWith("/dashboard/settings")
-                ? "bg-blue-600 text-white shadow-xl shadow-blue-600/20"
-                : "hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <span className="text-lg">⚙️</span>
-            Settings
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
+                pathname === link.href || (link.href !== "/dashboard" && pathname.startsWith(link.href))
+                  ? "bg-blue-600 text-white shadow-xl shadow-blue-600/20"
+                  : "hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              <span className="text-lg">{link.icon}</span>
+              {link.label}
+            </Link>
+          ))}
 
           <div className="pt-4 mt-4 border-t border-white/5">
             <button
@@ -102,8 +88,58 @@ export default function DashboardLayout({
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col ml-64">
-        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-30">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#0f172a] border-b border-white/5 px-6 h-16 flex items-center justify-between shadow-lg">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+            <span className="text-white font-black text-sm">O</span>
+          </div>
+          <span className="text-lg font-black text-white tracking-tight">ORZU CRM</span>
+        </Link>
+
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 text-white active:scale-95 transition-all"
+        >
+          <span className="text-2xl">{isMobileMenuOpen ? "✕" : "☰"}</span>
+        </button>
+      </div>
+
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 animate-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}></div>
+          <div className="absolute top-16 left-0 right-0 bg-[#0f172a] p-6 border-b border-white/5 animate-slide-down">
+            <nav className="space-y-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-4 px-6 py-4 rounded-2xl text-base font-bold transition-all ${
+                    pathname === link.href || (link.href !== "/dashboard" && pathname.startsWith(link.href))
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
+                      : "text-slate-400 hover:bg-white/5"
+                  }`}
+                >
+                  <span className="text-xl">{link.icon}</span>
+                  {link.label}
+                </Link>
+              ))}
+              <div className="pt-4 mt-4 border-t border-white/5">
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-base font-bold text-red-500 hover:bg-red-500/10 transition-all text-left"
+                >
+                  <span className="text-xl">🚪</span>
+                  Logout
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
+
+      <div className="flex-1 flex flex-col lg:ml-64 pt-16 lg:pt-0">
+        <header className="hidden lg:flex h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 items-center justify-between px-10 sticky top-0 z-30">
           <div className="flex items-center gap-4">
             <div className="h-8 w-1 bg-blue-600 rounded-full"></div>
             <div>
@@ -127,7 +163,14 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        <main className="flex-1 p-10">
+        <div className="lg:hidden px-6 pt-8">
+           <div className="flex items-center gap-3">
+              <div className="h-6 w-1 bg-blue-600 rounded-full"></div>
+              <h1 className="text-2xl font-black text-slate-800 capitalize tracking-tight">{pageTitle}</h1>
+           </div>
+        </div>
+
+        <main className="flex-1 p-6 lg:p-10">
           {children}
         </main>
       </div>
