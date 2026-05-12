@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { IStudent, IStudentCreate } from "./types"
 
-const apiBase = "http://localhost:8000"
+const apiBase = "http://localhost:3001"
 
 export const Todoapi = createApi({
   reducerPath: "Todoapi",
