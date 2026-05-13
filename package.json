@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "server": "json-server --watch db.json --port 8000"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
