@@ -1,20 +1,12 @@
 export interface IStudent {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  image: string;
-  address: string;
+  id: string
+  name: string
+  age: string
+  status: boolean
 }
 
 export interface IStudentCreate {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  image: string;
-  address: string;
+  name: string
+  age: string
+  status: boolean
 }

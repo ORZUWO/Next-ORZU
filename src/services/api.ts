@@ -1,58 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import axios from "axios"
 import { IStudent, IStudentCreate } from "./types"
 
-const apiBase = "http://localhost:3001"
+const API = "https://69945553fade7a9ec0f51007.mockapi.io/Student"
 
-export const Todoapi = createApi({
-  reducerPath: "Todoapi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: apiBase,
-  }),
-  tagTypes: ["GetTodo"],
+export const getStudents = async () => {
+  const { data } = await axios.get<IStudent[]>(API)
+  return data
+}
 
-  endpoints: (builder) => ({
-    getTodoapi: builder.query<IStudent[], void>({
-      query: () => "/clients",
-      providesTags: ["GetTodo"],
-    }),
+export const addStudent = async (student: IStudentCreate) => {
+  const { data } = await axios.post<IStudent>(API, student)
+  return data
+}
 
-    getClientById: builder.query<IStudent, string | number>({
-      query: (id) => `/clients/${id}`,
-      providesTags: ["GetTodo"],
-    }),
+export const deleteStudent = async (id: string) => {
+  await axios.delete(`${API}/${id}`)
+}
 
-    deleteTodoapi: builder.mutation<void, string | number>({
-      query: (id) => ({
-        url: `/clients/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["GetTodo"],
-    }),
-
-    postTodoapi: builder.mutation<IStudent, IStudentCreate>({
-      query: (newuser) => ({
-        url: "/clients",
-        method: "POST",
-        body: newuser,
-      }),
-      invalidatesTags: ["GetTodo"],
-    }),
-
-    editTodoapi: builder.mutation<IStudent, IStudent>({
-      query: (edituser) => ({
-        url: `/clients/${edituser.id}`,
-        method: "PUT",
-        body: edituser,
-      }),
-      invalidatesTags: ["GetTodo"],
-    }),
-  }),
-})
-
-export const {
-  useGetTodoapiQuery,
-  useGetClientByIdQuery,
-  useDeleteTodoapiMutation,
-  usePostTodoapiMutation,
-  useEditTodoapiMutation,
-} = Todoapi
+export const editStudent = async (student: IStudent) => {
+  const { data } = await axios.put<IStudent>(`${API}/${student.id}`, student)
+  return data
+}
