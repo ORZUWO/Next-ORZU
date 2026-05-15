@@ -1,14 +1,12 @@
-export interface IStudent{
-   data: Idata[],
-}
-export interface Idata{
-     name: string,
-    status: boolean,
-    age: number,
-    id: string,
-
+export interface IStudent {
+  id: string
+  name: string
+  age: string
+  status: boolean
 }
 
-
-
-
+export interface IStudentCreate {
+  name: string
+  age: string
+  status: boolean
+}
